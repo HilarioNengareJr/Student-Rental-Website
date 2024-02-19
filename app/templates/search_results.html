@@ -1,0 +1,436 @@
+{% extends 'layout.html' %}
+
+{% block title %} Search Results {% endblock %}
+
+{% block content %}
+<style>
+    .notification {
+        font-size: var(--fs-1);
+    }
+
+    .center-div {
+        width: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+</style>
+<div class="filter">
+    <fieldset class="filter-fieldset">
+        <form action="{{ url_for('properties') }}" method="post" class="custom-select">
+            <div class="form-group">
+                <label class="select-label" for="city">City</label>
+                <select name="city" id="city">
+                    <option value="Kyrenia">Girne</option>
+                    <option value="Nicosia">Lefkosa</option>
+                    <option value="Guzelyurt">Guzelyurt</option>
+                    <option value="Iskele">Iskele</option>
+                    <option value="Famagusta">Famagusta</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="select-label" for="status">Status</label>
+                <select class="form-group select-class" name="status" id="status">
+                    <option value="For Sale">For Sale</option>
+                    <option value="To Rent">To Rent</option>
+                </select>
+            </div>
+
+            <div class="form-group-modified form-group">
+                <label class="select-label" for="price">Price Range</label>
+                <div class="input-group">
+                    <input type="text" name="min_price" id="min_price" placeholder="Min Price">
+                    <input type="text" name="max_price" id="max_price" placeholder="Max Price">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="select-label" for="property_type">Property Type</label>
+                <select class="form-group select-class" name="property_type" id="property_type">
+                    <option value="House">House</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Flat">Flat</option>
+                    <option value="Penthouse">Penthouse</option>
+                </select>
+            </div>
+
+            <button type="submit" class="header-top-btn" style="padding-inline: 40px;">Filter</button>
+        </form>
+    </fieldset>
+</div>
+
+{% if hits %}
+<section class="property">
+    <div class="container">
+        <p class=""></p>
+
+
+        <ul class="property-list grid-list">
+            {% for post in hits%}
+            <li>
+                <div class="property-card property-card-height" id="property-{{ post['_source']['Listing Number'] }}">
+
+                    <figure class="card-banner">
+
+                        <img alt="Failed To Load!!" class="w-100" src="{{ post['_source']['Images'][0]}}">
+
+                        <div class="card-badge {% if post['_source']['Status'] == 'To Rent' %}green{% else %}orange{% endif %}">
+                            {{ post['_source']['Status'] }}
+                        </div>
+
+                        <div class="banner-actions">
+
+                            <button class="banner-actions-btn">
+                                <ion-icon name="location" role="img" class="md hydrated"
+                                    aria-label="location"></ion-icon>
+
+                                <address>{{ post['_source']['Location'] }}</address>
+                            </button>
+
+                            <a class="banner-actions-btn" href="#">
+                                <ion-icon name="calendar-outline" class="md hydrated" aria-label="camera"></ion-icon>
+
+                                <span>{{ post['_source']['Last Updated'] }}</span>
+                            </a>
+
+                        </div>
+
+                    </figure>
+
+
+
+                    <div class="card-content">
+
+                        <div class="card-price">
+                            <strong>{{ post['_source']['Price']}}</strong>
+                        </div>
+
+                        <h3 class="h3 card-title">
+                            <a href="#">{{ post['_source']['Property Type'] }}</a>
+                        </h3>
+
+                        <p class="card-text" style="height: 90px; overflow-y: hidden; text-overflow: ellipsis !important;">
+                            {{ post['_source']['Description']}}
+                        </p>
+
+                        <ul class="card-list">
+
+                            <li class="card-item">
+                                <strong>{{ post['_source']['Room Details'][0][0]}}</strong>
+
+                                <ion-icon name="bed-outline" role="img" class="md hydrated"
+                                    aria-label="bed outline"></ion-icon>
+
+                                <span>Bedrooms</span>
+                            </li>
+
+                            <li class="card-item">
+                                <strong>{{ post['_source']['Room Details'][1][0] }}</strong>
+
+                                <ion-icon name="man-outline" role="img" class="md hydrated"
+                                    aria-label="man outline"></ion-icon>
+
+                                <span>Bathrooms</span>
+                            </li>
+
+                            <li class="card-item">
+                                <strong>{{ post['_source']['Usable Internal Area'][0] }}</strong>
+
+                                <ion-icon name="square-outline" role="img" class="md hydrated"
+                                    aria-label="square outline"></ion-icon>
+
+                                <span>Square meters</span>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                    <div class="card-footer">
+
+                        <div class="card-author">
+
+                            <figure class="author-avatar">
+                                <img src="{{ post['_source']['Agent Image'] }}" alt="{{ post['_source']['Agent Name'] }}" class="w-100"
+                                    style="width: 40px;margin: auto;padding: inherit;">
+                            </figure>
+
+                            <div>
+                                <p class="author-name">
+                                    <a href="#">{{ post['_source']['Agent Name'] }}</a>
+                                </p>
+
+                                <p class="author-title">Estate Agent</p>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer-actions">
+
+                            <button id="open-popup-{{post['_source']['Listing Number']}}" class="card-footer-actions-btn"
+                                data-post-id="{{ post['_source']['Listing Number'] }}">
+                                <ion-icon name="resize-outline" role="img" class="md hydrated"
+                                    aria-label="resize outline"></ion-icon>
+                            </button>
+
+                            <button class="card-footer-actions-btn">
+                                <ion-icon name="heart-outline" role="img" class="md hydrated"
+                                    aria-label="heart outline"></ion-icon>
+                            </button>
+
+                            <button class="card-footer-actions-btn">
+                                <ion-icon name="add-circle-outline" role="img" class="md hydrated"
+                                    aria-label="add circle outline"></ion-icon>
+                            </button>
+
+                        </div>
+
+                    </div>
+                    <div id="popup-content-{{ post['_source']['Listing Number'] }}" class="resize-card" data-post-id="{{ post['_source']['Listing Number'] }}">
+                        <div id="popup-inner-{{ post['_source']['Listing Number'] }}" class="card-content for-card-content"
+                            data-post-id="{{ post['_source']['Listing Number'] }}">
+                            <span class="close" id="close-popup-{{ post['_source']['Listing Number'] }}" data-post-id="{{ post['_source']['Listing Number'] }}">
+                                <ion-icon name="close-sharp"></ion-icon>
+                            </span>
+                            <div class="card-footer">
+                                <div class="card-author">
+
+                                    <figure class="author-avatar">
+                                        <img src="{{ post['_source']['Agent Image'] }}" alt="{{ post['_source']['Agent Name'] }}"
+                                            class="w-100" style="width: 100%;margin: auto;padding: inherit;">
+                                    </figure>
+
+                                    <div>
+                                        <p class="author-name" style="max-width: 250px;">
+                                            <a href="#">{{ post['_source']['Agent Name'] }}</a>
+                                        </p>
+
+                                        <p class="author-title">Estate Agent</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <p class="section-subtitle" style="margin-block:50px;">
+                                Gallery
+                            </p>
+
+                            <div class="glide multi1">
+                                <div class="glide__track" data-glide-el="track">
+                                    <ul class="glide__slides">
+
+                                        {% for pic in post['_source']['Images'] %}
+                                        <li class="glide__slide">
+                                            <figure class="card-banner">
+                                                <img src="{{ pic }}" alt="Image">
+                                            </figure>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                                <div class="glide__arrows" data-glide-el="controls"
+                                    style="background-color: var(--cultured-1);">
+                                    <button class="glide__arrow glide__arrow--left navbar-link"
+                                        data-glide-dir="<"><ion-icon name="finger-print-outline"></ion-icon></button>
+                                    <button class="glide__arrow glide__arrow--right navbar-link"
+                                        data-glide-dir=">"><ion-icon name="finger-print-outline"></ion-icon></button>
+                                </div>
+                            </div>
+
+                            <p class="section-subtitle" style="margin-block:50px;">
+                                Property Overview
+                            </p>
+
+                            <p class="card-item callout" style="margin-block-end: 50px;">
+                                <ion-icon name="information-circle-outline"></ion-icon>
+                                {{ post['_source']["Description"] }}
+                            </p>
+                            <div class="grid-list-custom inform"
+                                style="border: 1px solid var(--opal);padding-block-start: 10px; background-color: var(--cultured-2);">
+                                <div class="about-the-property">
+                                    <ul>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list "><ion-icon name="pricetag-outline"></ion-icon>
+                                                Price
+                                                <span class="result date-list-item card-price">{{post['_source']['Price']}} </span>
+                                            </div>
+
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="home-outline"></ion-icon> Bedrooms
+                                                <span class="result date-list-item">
+                                                    {{ post['_source']["Room Details"][0][0] }}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="water-outline"></ion-icon>Baths Count <span
+                                                    class="result date-list-item"> {{ post['_source']["Room Details"][0][0] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="infinite-outline"></ion-icon>Building Age <span
+                                                    class="result date-list-item">{{ post['_source']["Building Age"] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="people-outline"></ion-icon>Living Room<span
+                                                    class="result date-list-item">{{ post['_source']["Living Room"] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="information-circle-outline"></ion-icon>Minimum Rental Period
+                                                <span class="result date-list-item">{{ post['_source']["Minimum Rental Period"] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="caret-up-circle-outline"></ion-icon>Floor Number <span
+                                                    class="result date-list-item">{{ post['_source']["Apartment Floor"] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="bed-outline"></ion-icon>Furniture <span
+                                                    class="result date-list-item">{{ post['_source']["Furnishing Type"] }}</span>
+                                            </div>
+                                        </li>
+                                        
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list"><ion-icon name="baseball-outline"></ion-icon>Pool
+                                                <span class="date-list-item result">
+                                                    {% if post['_source']['pool'] %}
+                                                    {{ post['_source']["Pool"] }}
+                                                    {% else %}
+                                                    No Pool
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="calendar-outline"></ion-icon>Last
+                                                Modified
+                                                on
+                                                <span class="date-list-item result"> {{ post['_source']["Last Updated"] }}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="home-features">
+                                    <ul>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="navigate-outline"></ion-icon>Address Number <span
+                                                    class="result date-list-item">{{post['_source']["Listing Number"]}}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                                <ion-icon name="pin-outline"></ion-icon>Location <span
+                                                    class="result date-list-item">Location</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="card-list d-flex">
+                                                <ion-icon name="business-outline"></ion-icon>Property Type <span
+                                                    class="result date-list-item">
+                                                    {{ post['_source']['Property Type']}}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="card-list d-flex">
+                                                <ion-icon name="pencil-outline"></ion-icon>Status <span
+                                                    class="result date-list-item">{{ post['_source']["Status"] }}</span>
+                                            </div>
+                                        </li>
+                                        <li class="property-list-item card-text d-flex">
+                                            <div class="d-flex card-list">
+                                            <ion-icon name="airplane-outline"></ion-icon>
+                                               Elevator
+                                                <span class="date-list-item result">
+                                                    {% if post['_source']['Elevator'] %}
+                                                    {{ post['_source']["Elevator"] }}
+                                                    {% else %}
+                                                    No Elevator
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="section-subtitle" style="margin-block-start: 20px;">
+                                Detailed Features
+                            </p>
+                            <div class="features" style="padding-inline-start: 100px;">
+                                {% if post['_source']['Outside Features'] %}
+                                <ul>
+                                    <li class="property-list-item card-text" style="display: grid;">
+                                        <div class="card-list d-flex">
+                                            <ion-icon name="information-outline"></ion-icon>Location Features
+                                        </div>
+                                        <ul style="padding-inline-start: 100px;color: var(--orange-soda);">
+                                            {% for elm in post['_source']['Outside Features']%}
+                                            {% for key, value in elm.items() %}
+                                            <li class="result"
+                                                style="list-style: url('../static/images/list.png') !important;"><span class="card-list card-item">{{key}}:</span> {{value}}</li>
+                                            {% endfor %}
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                </ul>
+                                {% else %}
+                                <p class="card-text">No outside features listed</p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer-actions" style="padding-block: 20px;">
+                                <a href="tel: {{ post['_source']['PhoneNumber'] }}" class="btn">
+                                    Contact Realtor
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</section>
+{% else %}
+<section class="property">
+    <div class="center-div">
+        <p class="notification navbar-link">
+            Not found
+        </p>
+    </div>
+</section>
+{% endif %}
+
+<div class="pagination">
+    {% if current_page > 1 %}
+    <a href="{{ url_for('search', current_page=current_page-1) }}"><span
+            class="navbar-link section-subtitle">Prev</span></a>
+    {% else %}
+    <a class="ion-icon navbar-link" title="Beginning of Search"><ion-icon name="hand-left-outline"></ion-icon></a>
+    {% endif %}
+
+    <span class="navbar-link"> page {{ current_page }} / {{ total_pages }}</span>
+
+    {% if current_page < total_pages %} <a href="{{ url_for('search', current_page=current_page+1) }}"><span
+            class="navbar-link section-subtitle">Next</span></a>
+        {% else %}
+        <a class="ion-icon navbar-link" title="End of Search"><ion-icon name="hand-right-outline"></ion-icon></a>
+        {% endif %}
+</div>
+
+{% endblock %}

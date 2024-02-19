@@ -1,0 +1,608 @@
+{% extends 'layout.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<style>
+    .after-hero {
+        background: url('/static/images/hero.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+    }
+
+    .after-hero::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(21, 20, 51, 0.8);
+        z-index: -1;
+    }
+
+    .modal-div {
+        display: none;
+        position: fixed;
+        z-index: 1005;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+
+    }
+
+    .modal-title {
+        margin-inline: auto;
+        padding-block: 20px;
+        font-family: var(--ff-poppins);
+        font-size: var(--fs-3);
+    }
+
+    .modal-content {
+        background-color: white !important;
+        margin: 5% auto;
+        padding: 30px;
+        border: 1px solid #888;
+        
+    }
+
+    input {
+        font-size: var(--fs-5);
+    }
+
+    .modal-header {
+        padding: 10px;
+        background-color: #f5f5f5;
+        border-bottom: 1px solid #ddd;
+    }
+
+    fieldset {
+        border: none;
+    }
+
+
+
+    .form-control-label {
+        width: 100%;
+    }
+
+    .hero {
+        background: url('/static/images/hero.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+        z-index: 2;
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr;
+        text-align: center;
+        height: 100vh !important;
+        padding-block-start: 200px;
+    }
+
+    .hero::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(21, 20, 51, 0.8);
+        z-index: -1;
+    }
+
+    .typed-div,
+    .search-bar-div,
+    .find {
+        grid-column: 1;
+    }
+
+    .typed-div {
+        position: inherit;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #typed {
+        position: absolute;
+        left: 50%;
+        top: 35%;
+        transform: translate(-50%, -50%);
+        padding-bottom: 50px;
+        color: var(--orange-soda);
+    }
+
+    .search-bar-div {
+        margin: 15px auto;
+        text-align: center;
+    }
+
+    .search-bar-div #search-select {
+        outline: none;
+        padding: 15px 30px;
+        
+        border: 1px solid var(--cadet);
+    }
+
+    .search-bar-div #search-select:is(:hover, :focus) {
+        border: 1px solid var(--orange-soda);
+        background-color: var(--cultured-2);
+    }
+
+    .find {
+        margin-inline: auto;
+        pointer-events: none;
+        margin-block-start: 35px;
+    }
+</style>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Faster+One&display=swap');
+
+    #typed {
+        font-family: 'Faster One', cursive;
+    }
+</style>
+<article>
+    <section class="hero" id="home">
+        <form action="{{ url_for('search') }}" method="post">
+            <div class="typed-div">
+                <h1 class="h1 section-title">
+                    <span id="typed"></span>
+                </h1>
+            </div>
+
+            <div class="search-bar-div">
+                <input type="text" title="Still under development" name="query" id="search-select" class="form-group"
+                    placeholder="Search Address, City, Price..." readonly>
+            </div>
+            <button class="btn find" id="find-btn">FIND</button>
+        </form>
+    </section>
+
+
+    <section class="about after-hero" id="about">
+        <div class="container">
+
+            <figure class="about-banner">
+                <img src="/static/images/about-banner-1.png" alt="House interior">
+
+                <img src="/static/images/about-banner-2.jpg" alt="House interior" class="abs-img">
+            </figure>
+
+            <div class="about-content">
+
+                <p class="section-subtitle">About Us</p>
+
+                <h2 class="h2 section-title white">The Leading Real Estate Rental Site.</h2>
+
+                <p class="about-text">
+                    Growing and maintained on a daily bases. If any queries please make an enquiry! We offer a wide
+                    range of rentals and below are some of the amenities we strive to locate for you.
+                </p>
+
+                <ul class="about-list">
+
+                    <li class="about-item">
+                        <div class="about-item-icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </div>
+
+                        <p class="about-item-text">Smart Home Design</p>
+                    </li>
+
+                    <li class="about-item">
+                        <div class="about-item-icon">
+                            <ion-icon name="leaf-outline"></ion-icon>
+                        </div>
+
+                        <p class="about-item-text">Beautiful Scene Around</p>
+                    </li>
+
+                    <li class="about-item">
+                        <div class="about-item-icon">
+                            <ion-icon name="wine-outline"></ion-icon>
+                        </div>
+
+                        <p class="about-item-text">Exceptional Lifestyle</p>
+                    </li>
+
+                    <li class="about-item">
+                        <div class="about-item-icon">
+                            <ion-icon name="shield-checkmark-outline"></ion-icon>
+                        </div>
+
+                        <p class="about-item-text">Complete 24/7 Security</p>
+                    </li>
+
+                </ul>
+
+                <p class="callout">
+                    "If you want a quick access to rentals, feel free to filter through listings."
+                </p>
+
+                <button class="btn" id="openMessageModal">Make An Enquiry</button>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="service" id="service">
+        <div class="container">
+
+            <p class="section-subtitle">Our Services</p>
+
+            <h2 class="h2 section-title">Our Main Focus</h2>
+
+            <ul class="service-list">
+
+                <li>
+                    <div class="service-card">
+
+                        <div class="card-icon">
+                            <img src="/static/images/service-1.png" alt="Service icon">
+                        </div>
+
+                        <h3 class="h3 card-title">
+                            <a href="{{ url_for('to_buy') }}">Buy a home</a>
+                        </h3>
+
+                        <p class="card-text">
+                            over 1 000+ homes are for sale, maybe today is your blessed day
+                        </p>
+
+                        <a href="{{ url_for('to_buy') }}" class="card-link">
+                            <span>Buy A Property</span>
+
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </a>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="service-card">
+
+                        <div class="card-icon">
+                            <img src="/static/images/service-2.png" alt="Service icon">
+                        </div>
+
+                        <h3 class="h3 card-title">
+                            <a href="{{ url_for('to_rent') }}">Rent a home</a>
+                        </h3>
+
+                        <p class="card-text">
+                            over 1 000+ listings are listed that you are able to select a home from
+                        </p>
+
+                        <a href="{{ url_for('to_rent') }}" class="card-link">
+                            <span>Find A Home</span>
+
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </a>
+
+                    </div>
+                </li>
+
+                <li>
+                    <div class="service-card">
+
+                        <div class="card-icon">
+                            <img src="/static/images/service-3.png" alt="Service icon">
+                        </div>
+
+                        <h3 class="h3 card-title">
+                            <a href="{{ url_for('add_listing') }}">List a property</a>
+                        </h3>
+
+                        <p class="card-text">
+                            You can enlist a property on this site too and pull traffic, it's a win-win
+                        </p>
+
+                        <a href="{{ url_for('add_listing') }}" class="card-link">
+                            <span>List A Property</span>
+
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </a>
+
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+    </section>
+
+
+    <!-- 
+      - #FEATURES
+    -->
+
+    <section class="features">
+        <div class="container">
+
+            <p class="section-subtitle">Our Aminities</p>
+
+            <h2 class="h2 section-title">Building Aminities</h2>
+
+            <ul class="features-list">
+
+                <li>
+                    <a href="/feature/bus-stop" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="bus-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Near Bus stop</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/swimming-pool" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="water-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Swimming Pool</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/private-security" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="shield-checkmark-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Private Security</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/medical-center" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="fitness-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Medical Center</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/building-age" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="business-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">New Building</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/furnished" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="bed-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Furnished</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/with-garden" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="leaf-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">With Garden</h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/feature/park" class="features-card">
+
+                        <div class="card-icon">
+                            <ion-icon name="football-outline"></ion-icon>
+                        </div>
+
+                        <h3 class="card-title">Park </h3>
+
+                        <div class="card-btn">
+                            <ion-icon name="arrow-forward-outline"></ion-icon>
+                        </div>
+
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+    </section>
+
+    <section class="blog" id="blog">
+        <div class="container">
+
+            <p class="section-subtitle">News & Blogs</p>
+
+            <h2 class="h2 section-title">Latest News Feeds</h2>
+
+            <ul class="blog-list has-scrollbar">
+
+                {% for blog in blogs %}
+                <li>
+                    <div class="blog-card" style="height: 550px;background: white;">
+
+                        <figure class="card-banner">
+                            <img src="{{ blog['Image Cover'] }}" alt="The Most Inspiring Interior Design Of 2021"
+                                class="w-100">
+                        </figure>
+
+                        <div class="blog-content">
+
+                            <div class="blog-content-top">
+
+                                <ul class="card-meta-list">
+
+                                    <li>
+                                        <a href="#" class="card-meta-link">
+                                            <ion-icon name="person"></ion-icon>
+
+                                            <span>by: {{ blog['Author'] }}</span>
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="card-meta-link">
+                                            <ion-icon name="pricetags"></ion-icon>
+
+                                            <span>Estate</span>
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                                <h3 class="h3 blog-title">
+                                    <a href="#">{{ blog['Title'] }}</a>
+                                </h3>
+
+                            </div>
+
+                            <div class="blog-content-bottom">
+                                <div class="publish-date">
+                                    <ion-icon name="calendar"></ion-icon>
+
+                                    <time datetime="{{ blog['Date'] }}">{{ blog['Date'] }}</time>
+                                </div>
+
+                                <a href="{{ blog['Link'] }}" class="navbar-link">Read More</a>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </section>
+
+
+    <section>
+        <div class="container">
+
+            <div class="cta-card">
+                <div class="card-content">
+                    <h2 class="h2 card-title">Looking for a dream home?</h2>
+
+                    <p class="card-text">We can help you realize your dream of a new home</p>
+                </div>
+
+                <a href="{{ url_for('properties') }}">
+                    <button class="btn cta-btn">
+                        <span>Explore Properties</span>
+
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </button>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="modal-div" id="message-modal">
+        <div class="modal-content w-85" style="background: white;">
+            <span class="close" id="close-modal"><ion-icon name="close-sharp"></ion-icon></span>
+            <form id="contactForm" action="https://formspree.io/f/xrgwgwen" method="POST">
+                <fieldset class="form-group">
+                    <legend class="modal-title navbar-link"> PLACE YOUR ENQUIRY</legend>
+                    <label class="-label" for="email">Email Address</label>
+                    <input class="form-control form-control-lg" type="email" id="email" name="email" required><br>
+
+                    <label class="form-control-label" for="subject">Subject</label>
+                    <input class="form-control form-control-lg" type="text" id="subject" name="subject" required><br>
+
+                    <label class="form-control-label" for="message">Message</label>
+                    <textarea class="form-control form-control-lg" id="message" name="message" required></textarea><br>
+
+                    <button class="btn" id="enquire">Enquire</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+</article>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $("#openMessageModal").click(function () {
+            $("#message-modal").css("display", "block");
+        });
+
+        $(window).click(function (e) {
+            if (e.target.id == "message-modal") {
+                $("#message-modal").css("display", "none");
+            }
+        });
+
+        $("#close-modal").click(function () {
+            $("#message-modal").css("display", "none");
+        });
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Home Rental {% endblock %}</title>
+
+    {% block head %} {% endblock %}
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="/static/images/hero-banner.png" type="image/svg+xml">
+
+    <!-- 
+    - custom css link
+  -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="path/to/jquery.modal.min.js"></script>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/glide.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/css/glide.core.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/css/glide.theme.css">
+    {{ dropzone.load() }}
+    {{ dropzone.style('border: 1px dashed var(--orange-soda); margin: 10%; min-height: 400px;') }}
+</head>
+<style>
+    .popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        color: inherit;
+        padding: 20px;
+        border: 2px solid #ccc;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .ion-icon {
+        font-size: var(--fs-4);
+        gap: 10px;
+    }
+
+    .ion-icon:is(:hover, :focus) {
+        color: var(--orange-soda);
+    }
+</style>
+
+<body>
+
+    <header class="header" data-header>
+
+        <div class="overlay" data-overlay></div>
+
+        <div class="header-top">
+            <div class="container">
+
+                <ul class="header-top-list">
+
+                    <li>
+                        <a href="mailto:hnengare@gmail.com" class="header-top-link">
+                            <ion-icon name="mail-outline"></ion-icon>
+
+                            <span>hnengare@gmail.com</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="header-top-link">
+                            <ion-icon name="location-outline"></ion-icon>
+
+                            <address>Istanbul, TR</address>
+                        </a>
+                    </li>
+
+                </ul>
+
+                <div class="wrapper">
+                    <ul class="header-top-social-list">
+
+                        <li>
+                            <a href="#" class="header-top-social-link">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="header-top-social-link">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="header-top-social-link">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="header-top-social-link">
+                                <ion-icon name="logo-pinterest"></ion-icon>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <a href="{{ url_for('add_listing') }}"> <button class="header-top-btn"> Add Listing</button></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="header-bottom">
+            <div class="container">
+                <a href="{{ url_for('home_page') }}" class="logo">
+                    <img src="static/images/logo.png" alt="logo" style="width: 60px;">
+                </a>
+
+                <nav class="navbar" data-navbar>
+
+                    <div class="navbar-top">
+
+                        <a href="#" class="logo">
+                            <img src="/static/images/logo.png" alt="logo" style="width: 60px;">
+
+                        </a>
+
+                        <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
+                            <ion-icon name="close-outline"></ion-icon>
+                        </button>
+
+                    </div>
+
+                    <div class="navbar-bottom">
+                        <ul class="navbar-list">
+
+                            <li>
+                                <a href="{{ url_for('home_page') }}" class="navbar-link" data-nav-link>Home Page</a>
+                            </li>
+
+                            <li>
+                                <a href="{{ url_for('properties') }}" class="navbar-link" data-nav-link>All
+                                    Properties</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('to_rent') }}" class="navbar-link" data-nav-link>Rentals</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('to_buy') }}" class="navbar-link" data-nav-link>On Sale</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('about') }}" class="navbar-link" data-nav-link>About</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('services') }}" class="navbar-link" data-nav-link>FAQs</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+
+                <div class="header-bottom-actions">
+
+                    <button class="header-bottom-actions-btn" id="filter-btn" title="Filter" aria-label="Filter">
+                        <ion-icon name="funnel-outline"></ion-icon>
+                    </button>
+
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('account') }}" class="header-bottom-actions-btn" title="My Profile">
+                        <ion-icon name="settings-outline"></ion-icon>
+                    </a>
+                    <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                    {% else %}
+                    <a href="{{ url_for('register') }}" title="Become Registered" class="header-bottom-actions-btn"
+                        aria-label="Profile">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </a>
+
+                    <a href="{{ url_for('login') }}" title="Log In" class="header-bottom-actions-btn" aria-label="login"
+                    >
+                        <ion-icon name="log-in-outline"></ion-icon>
+                    </a>
+                    {% endif %}
+                    <a class="header-bottom-actions-btn" data-nav-open-btn aria-label="Open Menu">
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+    </header>
+    <div id="flash-popup" class="popup">
+        <span class="popup-content">{{ get_flashed_messages(category_filter=["success"])[0] }}</span>
+        <span class="ion-icon" id="close-popup"> <ion-icon name="close-outline"></ion-icon> </span>
+    </div>
+
+    <main>
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    &copy; 2023 <a href="#">Hilario Nengare Jr</a>. All Rights Reserved
+                </p>
+
+            </div>
+        </div>
+
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var openPopupButtons = document.querySelectorAll('[id^="open-popup-"]');
+            var closePopupButtons = document.querySelectorAll('[id^="close-popup-"]');
+            var theModals = document.querySelectorAll('[id^="popup-content-"]');
+
+            openPopupButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    var theModal = document.getElementById("popup-content-" + postId);
+                    theModal.classList.add("active");
+
+
+                    var glide = new Glide(theModal.querySelector('.glide'), {
+                        type: 'carousel',
+                        animationDuration: 2000,
+                        autoplay: 3000,
+                        focusAt: "center",
+                        startAt: 1,
+                        perView: 1,
+                    });
+                    glide.mount();
+                });
+            });
+
+            closePopupButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var postId = button.getAttribute('data-post-id');
+                    var theModal = document.getElementById("popup-content-" + postId);
+                    theModal.classList.remove("active");
+                });
+            });
+
+            theModals.forEach(function (modal) {
+                modal.addEventListener('click', function (event) {
+                    if (event.target == modal) {
+                        modal.classList.remove('active');
+                    }
+                });
+            });
+
+        });
+    </script>
+   
+    <script>
+        function reverseOptions(selectClass) {
+            const selectElements = document.querySelectorAll('.' + selectClass);
+
+            selectElements.forEach(function (selectElement) {
+                const options = selectElement.querySelectorAll('option');
+                const reversedOptions = Array.from(options).reverse();
+
+                reversedOptions.forEach(function (option) {
+                    selectElement.appendChild(option);
+                });
+            });
+        }
+
+        window.onload = function () {
+            reverseOptions('select-class');
+        };
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('#filter-btn').click(function () {
+                $('.filter').slideToggle();
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            if ($('#flash-popup span').text().trim() !== "") {
+                $('#flash-popup').show();
+            }
+
+            $('#close-popup').click(function () {
+                $('#flash-popup').hide();
+            });
+        });
+    </script>
+
+    <script>
+        new Typed('#typed', {
+            strings: ['NICOSIA', '... ', 'LEFKE', '...', 'GUZELYURT', '...', 'GIRNE', '...', 'MAGUSA', '...'],
+            typeSpeed: 90,
+            delaySpeed: 5,
+            loop: true,
+            showCursor: false
+        });
+    </script>
+    <script src="/static/javascript/script.js"></script>
+    <script src="/static/javascript/forms.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    {% block script %}{% endblock %}
+</body>
+
+</html>

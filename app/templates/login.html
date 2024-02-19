@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block title %} Sign In{% endblock %}
+{% block content %}
+
+<section class="post-details auth h-100">
+    <form action="{{ url_for('login') }}" method="Post">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group-set w-85">
+            <legend>Sign In</legend>
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group">
+                {{ form.password.label(class="form-label") }}
+                {% if form.password.errors %}
+                {{ form.password(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.password.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.password(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-check">
+                {{ form.remember(class="form-check-input") }}
+                {{ form.remember.label(class="form-check-label") }}
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <button id="login" type="submit" class="btn btn-primary" >{{ form.submit.label }}
+                </button>
+            </div>
+            <small class="text-muted ml-2">
+                <a href="#" style="margin-left: 10px;">Forgot Password?</a>
+            </small>
+        </fieldset>
+         
+    </form>
+</section>
+
+{% endblock %}

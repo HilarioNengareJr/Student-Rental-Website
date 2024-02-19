@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block head %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+
+{% block content %}
+<style>
+    .post {
+        padding-inline: 250px;
+        margin-block: var(--section-padding);
+    }
+
+    .thumbnail-container {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .thumbnail {
+        width: 33%;
+        height: 30%;
+    }
+
+
+    @media (min-width: 1200px) {
+        .header.active .header-bottom {
+            position: fixed;
+            bottom: auto;
+            top: -143px;
+            padding-block: 35px;
+            box-shadow: 0 10px 50px hsla(237, 71%, 52%, 0.2);
+            animation: slideDown 0.25s ease-out forwards;
+        }
+    }
+</style>
+<section class="post">
+    <div class="carousel slide" data-bs-ride="carousel" id="carouselExampleControls">
+        <figure class="carousel-inner card-banner">
+            {% for file_url in urls %}
+            <div class="carousel-item {% if loop.first %}active{% endif %} text-center">
+                <img alt="..." class="d-block w-100" src="{{ url_for('static', filename='uploads/' + file_url) }}">
+            </div>
+            {% endfor %}
+        </figure>
+        <button class="carousel-control-prev" data-bs-slide="prev" data-bs-target="#carouselExampleControls"
+            type="button">
+            <span aria-hidden="true" class="carousel-control-prev-icon"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" data-bs-slide="next" data-bs-target="#carouselExampleControls"
+            type="button">
+            <span aria-hidden="true" class="carousel-control-next-icon"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="thumbnail-container grid-list">
+        {% for file_url in urls %}
+        <div class="thumbnail" data-bs-target="#carouselExampleControls" data-bs-slide-to="{{ loop.index0 }}">
+            <img alt="..." class="d-block w-100" src="{{ url_for('static', filename='uploads/' + file_url) }}">
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+<script>
+    document.querySelectorAll('.thumbnail').forEach(function (thumbnail) {
+        thumbnail.addEventListener('click', function () {
+            var slideIndex = this.getAttribute('data-bs-slide-to');
+            var carouselInstance = new bootstrap.Carousel(document.querySelector('.carousel'));
+            carouselInstance.to(parseInt(slideIndex));
+        });
+    });
+</script>
+{% endblock %}
