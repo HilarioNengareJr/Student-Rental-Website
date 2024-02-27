@@ -1444,11 +1444,11 @@ textarea:is(:hover, :focus) {
         display: none;
     }
 
-    .w-85{
+    .w-85 {
         width: 85%;
     }
 
-    form{
+    form {
         padding-inline: 0;
     }
 
@@ -1457,7 +1457,7 @@ textarea:is(:hover, :focus) {
 
 @media (max-width: 768px) {
 
-    form{
+    form {
         padding-inline: 0;
     }
 
@@ -1489,9 +1489,14 @@ textarea:is(:hover, :focus) {
         padding-inline: 0px !important;
     }
 
-   
+
     legend {
         text-align: center;
+    }
+
+
+    .card-list {
+        margin-right: 0;
     }
 
     .header-top .container {
@@ -1504,7 +1509,7 @@ textarea:is(:hover, :focus) {
         display: none;
     }
 
-    .w-85{
+    .w-85 {
         width: 85%;
     }
 
@@ -1512,7 +1517,7 @@ textarea:is(:hover, :focus) {
         width: auto !important;
     }
 
-    .filter{
+    .filter {
         height: 95vh;
     }
 }
@@ -1555,7 +1560,7 @@ textarea:is(:hover, :focus) {
         scroll-padding-left: 25px;
     }
 
-    
+
 
     .has-scrollbar>li {
         min-width: calc(50% - 12.5px);
@@ -1816,7 +1821,7 @@ textarea:is(:hover, :focus) {
         padding-inline: var(--section-padding) !important;
     }
 
-    .modal-content{
+    .modal-content {
         width: 60%;
     }
 
@@ -1948,14 +1953,14 @@ textarea:is(:hover, :focus) {
         overflow-y: hidden;
         box-shadow: 0 3px 10px hsla(0, 0%, 0%, 0.3);
     }
-    
+
     .filter fieldset form {
         display: flex;
         justify-content: space-around;
         padding: 40px 20px;
         gap: 30px;
     }
-    
+
     .filter-fieldset {
         margin: auto;
         width: 100%;
@@ -2390,4 +2395,15 @@ select:is(:hover, :focus) {
     line-height: 100px;
     margin: 0;
     text-align: center;
+}
+
+.notification {
+    font-size: var(--fs-1);
+}
+
+.center-div {
+    width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
 }

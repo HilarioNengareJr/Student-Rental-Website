@@ -136,7 +136,7 @@
         <div class="header-bottom">
             <div class="container">
                 <a href="{{ url_for('home_page') }}" class="logo">
-                    <img src="static/images/logo.png" alt="logo" style="width: 60px;">
+                    <img src="/static/images/logo.png" alt="logo" style="width: 60px;">
                 </a>
 
                 <nav class="navbar" data-navbar>
@@ -145,7 +145,6 @@
 
                         <a href="#" class="logo">
                             <img src="/static/images/logo.png" alt="logo" style="width: 60px;">
-
                         </a>
 
                         <button class="nav-close-btn" data-nav-close-btn aria-label="Close Menu">
@@ -172,10 +171,7 @@
                                 <a href="{{ url_for('to_buy') }}" class="navbar-link" data-nav-link>On Sale</a>
                             </li>
                             <li>
-                                <a href="{{ url_for('about') }}" class="navbar-link" data-nav-link>About</a>
-                            </li>
-                            <li>
-                                <a href="{{ url_for('services') }}" class="navbar-link" data-nav-link>FAQs</a>
+                                <a href="{{ url_for('about') }}" class="navbar-link" data-nav-link>About Us</a>
                             </li>
                         </ul>
                     </div>
@@ -189,9 +185,6 @@
                     </button>
 
                     {% if current_user.is_authenticated %}
-                    <a href="{{ url_for('account') }}" class="header-bottom-actions-btn" title="My Profile">
-                        <ion-icon name="settings-outline"></ion-icon>
-                    </a>
                     <a href="{{ url_for('logout') }}" class="btn">Logout</a>
                     {% else %}
                     <a href="{{ url_for('register') }}" title="Become Registered" class="header-bottom-actions-btn"

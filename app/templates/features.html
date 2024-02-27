@@ -53,8 +53,13 @@
 </div>
 <section class="property">
     <div class="container">
-        <p class=""></p>
-
+        {% if not filtered_data %}
+        <div class="center-div">
+            <p class="notification navbar-link">
+                Not found
+            </p>
+        </div>
+        {% endif %}
 
         <ul class="property-list grid-list">
             {% for post in filtered_data %}

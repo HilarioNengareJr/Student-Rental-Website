@@ -20,7 +20,7 @@ def send_email():
         message = request.form['message']
 
         msg = Message(subject, sender=email,
-                           recipients=['hnengare@gmail.com'])
+                      recipients=['hnengare@gmail.com'])
         msg.body = message
         mail.send(msg)
         flash('Enquiry placed successfully', 'success')
@@ -32,7 +32,20 @@ def send_email():
 
 @app.route('/search', methods=['POST', 'GET'])
 def search():
-    pass
+
+    query = request.form.get('query')
+    json_data = load_estate_data()['featured_data'] + load_estate_data()['lefke_data'] + load_estate_data()['guzelyurt_data'] + load_estate_data()['rent_data'] + load_estate_data()['cyprus_data'] + load_estate_data()['iskele_data'] + \
+        load_estate_data()['magusa_data'] + load_estate_data()['konut_data'] + load_estate_data()['sale_data_1'] + \
+        load_estate_data()['sale_data_2'] + \
+        load_estate_data()['sale_data_3'] + load_estate_data()['sale_data_4']
+
+    search_results = []
+
+    for property in json_data:
+        if query.casefold() in property['Location'].casefold() or query.casefold() in property['Price'].casefold():
+            search_results.append(property)
+
+    return render_template('search_results.html', hits=search_results)
 
 
 @app.route('/')
@@ -48,14 +61,13 @@ def home_page() -> str:
     return render_template('landing_page.html', blogs=blogs)
 
 
-
-
 @app.route('/#service')
 def services() -> str:
     '''Render the services section'''
     return render_template('landing_page.html')
 
 # About section route
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register() -> str:
@@ -203,22 +215,23 @@ def to_buy():
     page = request.args.get('page', 1, type=int)
     for_sale = []
     items_per_page = 12
-    
+
     json_data = estate_data['featured_data'] + estate_data['lefke_data'] + estate_data['guzelyurt_data'] + estate_data['rent_data'] + estate_data['cyprus_data'] + estate_data['iskele_data'] + \
         estate_data['magusa_data'] + estate_data['konut_data'] + estate_data['sale_data_1'] + \
         estate_data['sale_data_2'] + \
-        estate_data['sale_data_3'] + estate_data['sale_data_4'] 
+        estate_data['sale_data_3'] + estate_data['sale_data_4']
 
     for item in json_data:
         if item['Status'] == "For Sale":
             for_sale.append(item)
-        
+
     start_idx = (page - 1) * items_per_page
     end_idx = min(start_idx + items_per_page, len(for_sale))
     current_page_data = for_sale[start_idx:end_idx]
 
     return render_template('to_buy.html', current_page_data=current_page_data, page=page,
                            total_pages=len(for_sale)//items_per_page)
+
 
 @app.route('/to-rent')
 def to_rent():
@@ -244,9 +257,9 @@ def to_rent():
 
 @app.route('/feature/<feature_name>')
 def feature_detail(feature_name):
-    
+
     estate_data = load_estate_data()
-    
+
     json_data = estate_data['featured_data'] + estate_data['lefke_data'] + estate_data['guzelyurt_data'] + estate_data['rent_data'] + estate_data['cyprus_data'] + estate_data['iskele_data'] + \
         estate_data['magusa_data'] + estate_data['konut_data'] + estate_data['sale_data_1'] + \
         estate_data['sale_data_2'] + \
@@ -255,13 +268,13 @@ def feature_detail(feature_name):
     if feature_name == 'bus-stop':
         feature = 'Bus Stop'
         filtered_data = []
-        
+
         for property_listing in json_data:
             for feature_dict in property_listing.get("Outside Features", []):
                 for key, value in feature_dict.items():
                     if feature in key:
                         filtered_data.append(property_listing)
-                        
+
         return render_template('features.html', title=feature_name, filtered_data=filtered_data, )
 
     elif feature_name == 'swimming-pool':
@@ -279,7 +292,7 @@ def feature_detail(feature_name):
     elif feature_name == 'medical-center':
         feature = 'Hastanesi'
         filtered_data = []
-        
+
         for property_listing in json_data:
             for feature_dict in property_listing.get("Outside Features", []):
                 for key, value in feature_dict.items():
@@ -305,7 +318,7 @@ def feature_detail(feature_name):
         filtered_data = [item for item in json_data if feature in item.get(
             "Outside Features", [])]
         return render_template('features.html', title=feature_name, filtered_data=filtered_data, )
-   
+
     elif feature_name == 'with-garden':
         feature = 'Yes'
         filtered_data = [item for item in json_data if feature in item.get(
@@ -319,14 +332,6 @@ def feature_detail(feature_name):
 @app.route('/about')
 def about():
     return render_template("about.html")
-
-
-@app.route('/account')
-@login_required
-def account() -> str:
-    '''Render the account page'''
-    
-    return render_template('account.html')
 
 
 @app.route('/logout', methods=['GET', 'POST'])
