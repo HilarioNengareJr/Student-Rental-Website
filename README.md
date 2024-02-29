@@ -27,10 +27,7 @@ Student Rental is a feature-rich web application built with Flask, designed to s
 3. **Search and Filter:**
    - Utilize Elasticsearch-powered search to find rentals based on preferences.
 
-4. **Booking System:**
-   - Streamlined process for tenants to book their preferred accommodations.
-
-5. **Landlord Dashboard:**
+4. **User Dashboard:**
    - Dedicated dashboards for landlords to manage property listings and tenant requests.
 
 ## How to Use
@@ -43,12 +40,6 @@ Student Rental is a feature-rich web application built with Flask, designed to s
 
 3. **Sign Up or Log In:**
    - Create an account or log in to access additional features.
-
-4. **Book Your Accommodation:**
-   - Submit booking requests for the desired rental property.
-
-5. **Landlord Management:**
-   - Landlords can log in to manage property listings and handle tenant requests.
 
 ## Development
 
