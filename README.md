@@ -45,11 +45,7 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 
 To run Student Rental Website locally, follow these steps:
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/HilarioNengareJr/rental-estate-site.git
-   ```
-
+1. Clone the repository
 2. **Build and Run with Docker Compose:**
 - Navigate to the project directory.
 - Run the following command to build and start the containers:
