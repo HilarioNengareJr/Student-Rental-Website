@@ -2,7 +2,7 @@
 
 ## Overview
 
-Student Rental is a feature-rich web application built with Flask, designed to simplify the process of finding and renting student accommodations. Leveraging technologies like HTML, CSS, JavaScript, Elasticsearch, and PostgreSQL, it offers a seamless experience for both tenants and landlords.
+Student Rental is a feature-rich web application built with Python's Flask framework. It's designed to simplify the process of finding and renting accommodations for University students in Cyprus. Leveraging technologies like HTML, CSS, JavaScript, Elasticsearch, and PostgreSQL, it offers a seamless experience for both students and estate agents.
 
 ## Technologies Used
 
@@ -33,7 +33,7 @@ Student Rental is a feature-rich web application built with Flask, designed to s
 ## How to Use
 
 1. **Visit the Website:**
-   - Access Student Rental Hub through your web browser.
+   - Access Student Rental Web through your web browser.
 
 2. **Explore Listings:**
    - Browse available properties and filter results based on your criteria.
@@ -43,7 +43,7 @@ Student Rental is a feature-rich web application built with Flask, designed to s
 
 ## Development
 
-To run Student Rental Hub locally, follow these steps:
+To run Student Rental Website locally, follow these steps:
 
 1. Clone the repository:
    ```
@@ -78,3 +78,4 @@ To run Student Rental Hub locally without Docker Compose, follow these steps:
 4. **Access the App in Your Browser:**
 
 - http://localhost:5000/
+
