@@ -41,53 +41,32 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 3. **Sign Up or Log In:**
    - Create an account or log in to access additional features.
 
-## Development
-
-To run Student Rental Website locally, follow these steps:
-
-1. Clone the repository
-2. **Build and Run with Docker Compose:**
-- Navigate to the project directory.
-- Run the following command to build and start the containers:
-  ```
-  docker-compose up --build
-  ```
-
-3. **Access the Application:**
-- Open your web browser and go to:
-  ```
-  http://localhost:5000
-  ```
-
-## Development
-
-To run Student Rental Hub locally without Docker Compose, follow these steps:
-
-1. **Install Dependencies:**
-- pip install -r requirements.txt
-
-2. **Set Up PostgreSQL and Elasticsearch:**
-- Configure database and search index settings in the Flask app.
-
-3. **Run the Flask App:**
-
-4. **Access the App in Your Browser:**
-
-- http://localhost:5000/
 
 ## Screenshots of app
 
+## Login Page
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/ca7b97f0-53df-40ed-aea2-5a279b1369e2)
+
 ## Home Page
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/ed093f8c-9d3e-4da6-9c7a-bc9a1006f14c)
+
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b4138b55-77f7-4be8-be08-d47808321bfb)
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/50cba6ed-bedf-41e3-9999-17559030fd82)
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/77a86c18-c645-48ed-81b3-388c53985a23)
 
+## Blog section
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/388c23b0-cb9b-49c5-83da-42783e04f134)
+
+## Filter Section
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/6647dcfe-d175-4546-b3d8-d99492931859)
+
 
 ## Listings
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/90aeb267-f32a-49aa-a168-30f79b928ad1)
+
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b6e763b0-afef-4c03-90df-287185b32767)
 
 
 ## Post
@@ -95,6 +74,10 @@ To run Student Rental Hub locally without Docker Compose, follow these steps:
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b1292915-65b4-468b-8791-2a9fc29db491)
 
+## Featured Listings
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/c6476ba1-2090-4486-a7bb-9e0b5773b717)
+
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/ceb21d04-d2d8-4cb4-a23b-e91222fc3735)
 
 
 
