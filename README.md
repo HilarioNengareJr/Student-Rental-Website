@@ -108,6 +108,7 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/ceb21d04-d2d8-4cb4-a23b-e91222fc3735)
 
 <br/>
+
 ## Footer
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/2d5fd7de-0e80-42a7-b481-fa26a3179d03)
 
