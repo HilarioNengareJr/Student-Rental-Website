@@ -77,6 +77,7 @@ To run Student Rental Hub locally without Docker Compose, follow these steps:
 
 ## Screenshots of app
 
+## Home Page
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b4138b55-77f7-4be8-be08-d47808321bfb)
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/50cba6ed-bedf-41e3-9999-17559030fd82)
@@ -85,11 +86,15 @@ To run Student Rental Hub locally without Docker Compose, follow these steps:
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/388c23b0-cb9b-49c5-83da-42783e04f134)
 
+## Listings
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/90aeb267-f32a-49aa-a168-30f79b928ad1)
+
+
+## Post
+![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/08a3ea9e-08e9-49cb-9168-91e658b5eef2)
 
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b1292915-65b4-468b-8791-2a9fc29db491)
 
-![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/08a3ea9e-08e9-49cb-9168-91e658b5eef2)
 
 
 
