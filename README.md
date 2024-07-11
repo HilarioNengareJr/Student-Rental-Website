@@ -50,13 +50,15 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 ## Home Page
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/ed093f8c-9d3e-4da6-9c7a-bc9a1006f14c)
 
+### Hero Section
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b4138b55-77f7-4be8-be08-d47808321bfb)
 
+### Amenities Section
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/50cba6ed-bedf-41e3-9999-17559030fd82)
-
+### ...
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/77a86c18-c645-48ed-81b3-388c53985a23)
 
-## Blog section
+### Blog section
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/388c23b0-cb9b-49c5-83da-42783e04f134)
 
 ## Filter Section
@@ -64,14 +66,18 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 
 
 ## Listings
+
+### To Rent
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/90aeb267-f32a-49aa-a168-30f79b928ad1)
 
+### On Sale
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b6e763b0-afef-4c03-90df-287185b32767)
 
 
 ## Post
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/08a3ea9e-08e9-49cb-9168-91e658b5eef2)
 
+### Expanded Post
 ![image](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/b1292915-65b4-468b-8791-2a9fc29db491)
 
 ## Featured Listings
