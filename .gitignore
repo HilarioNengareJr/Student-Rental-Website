@@ -5,3 +5,4 @@ __pycache__
 .idea
 .vscode
 google-chrome-stable_current_amd64.deb
+.aider*
