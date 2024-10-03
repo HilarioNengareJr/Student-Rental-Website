@@ -1,8 +1,48 @@
+# Python
 venv/
+*.pyc
+__pycache__/
+
+# Flask
+instance/
+.env
+.flaskenv
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Editor and IDE files
+.idea/
+.vscode/
+
+# Docker
+Dockerfile
+docker-compose.yml
+
+# Chrome driver
+app/webspider/chrome-driver/
+
+# Static files (images, CSS, JS)
+app/static/images/
+app/static/style.css
+app/static/javascript/
+
+# Profile pictures
+app/static/profile_pics/
+
+# JSON data files
+app/webspider/estate_data.json
+app/webspider/blog_data.json
+
+# Other
 nohup.out
 os
-__pycache__
-.idea
-.vscode
-google-chrome-stable_current_amd64.deb
 .aider*
