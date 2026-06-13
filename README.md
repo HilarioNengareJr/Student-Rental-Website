@@ -1,45 +1,53 @@
-# Student Rental Hub - Flask Web Application
+# Student Rental
 
-## Overview
+a flask app for finding and listing property in north cyprus — lefke, güzelyurt, nicosia, girne, mağusa and i̇skele. it scrapes listings off 101evler.com and lets registered users post their own, then shows both in one feed. started out as a way for students to find accommodation, but it handles normal rentals and sales too.
 
-Student Rental is a feature-rich web application built with Python's Flask framework. It's designed to simplify the process of finding and renting accommodations for University students in Cyprus. Leveraging technologies like HTML, CSS, JavaScript, Elasticsearch, and PostgreSQL, it offers a seamless experience for both students and estate agents.
+## what it does
 
-## Technologies Used
+- browse everything, or filter down to rentals (`/to-rent`) or sales (`/to-buy`)
+- drill into properties by feature — pool, garden, furnished, near a bus stop, that sort of thing
+- search by location or price (elasticsearch when it's wired up, in-memory filtering when it isn't)
+- register, log in, and post your own listings with photos
+- manage your own listings — edit or delete them
+- profile page + password reset
+- email the owner an enquiry
+- scraped blog feed on the landing page
 
-- **Frontend:**
-  - HTML for creating the structure of the web pages
-  - CSS for styling and enhancing the user interface
-  - JavaScript for client-side interactivity and dynamic content
+## stack
 
-- **Backend:**
-  - Flask as the web framework for Python
-  - PostgreSQL as the relational database for storing user and property data
-  - Elasticsearch for efficient and powerful search functionality
+- **flask** + jinja templates, server-rendered
+- **sqlite** through sqlalchemy, schema managed with flask-migrate
+- **flask-login + bcrypt** for auth
+- **elasticsearch** for search, with an in-memory fallback so it still runs without a server
+- **selenium + undetected-chromedriver** for the scrapers (101evler listings + blog)
+- plain html/css/js on the front — jquery, glide.js, typed.js
+- **gunicorn + docker** for deployment
 
-## Features
+## running it
 
-1. **User Authentication:**
-   - Secure login and registration system for tenants and landlords.
+local:
 
-2. **Property Listings:**
-   - Browse through a comprehensive list of available student accommodations.
+```bash
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env        # drop in your smtp creds etc.
+flask db upgrade            # build the database
+python run.py               # http://localhost:5000
+```
 
-3. **Search and Filter:**
-   - Utilize Elasticsearch-powered search to find rentals based on preferences.
+a couple of env switches: `FLASK_DEBUG=true` for debug mode, `ENABLE_SCRAPER_THREADS=true` to kick off the scrapers on startup (needs chrome), `ELASTICSEARCH_URL` to point at a real elasticsearch instead of the fallback.
 
-4. **User Dashboard:**
-   - Dedicated dashboards for landlords to manage property listings and tenant requests.
+docker (brings up the app and elasticsearch together):
 
-## How to Use
+```bash
+docker compose up --build
+```
 
-1. **Visit the Website:**
-   - Access Student Rental Web through your web browser.
+tests:
 
-2. **Explore Listings:**
-   - Browse available properties and filter results based on your criteria.
-
-3. **Sign Up or Log In:**
-   - Create an account or log in to access additional features.
+```bash
+pytest
+```
 
 ## Screenshots of app
 
@@ -120,5 +128,3 @@ Student Rental is a feature-rich web application built with Python's Flask frame
 
 ### Footer
 ![Footer](https://github.com/HilarioNengareJr/Student-Rental-Website/assets/38634516/2d5fd7de-0e80-42a7-b481-fa26a3179d03)
-
-
