@@ -20,6 +20,7 @@ Flask-Dropzone==1.6.0
 Flask-Elasticsearch==0.2.5
 Flask-Login==0.6.3
 Flask-Mail==0.9.1
+Flask-Migrate==4.1.0
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.2.1
 greenlet==3.0.3
@@ -43,6 +44,7 @@ pycparser==2.21
 pyOpenSSL==24.0.0
 pyparsing==3.1.1
 PySocks==1.7.1
+pytest==9.1.0
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 requests==2.31.0

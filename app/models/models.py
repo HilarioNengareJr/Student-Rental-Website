@@ -1,6 +1,8 @@
 from app import db, login_manager
 from datetime import datetime
+from flask import current_app
 from flask_login import UserMixin
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 
 @login_manager.user_loader
 def load_user(id: int) -> 'User':
@@ -18,16 +20,32 @@ class User(UserMixin, db.Model):
     def like_post(self, post: 'Post') -> None:
         if not self.has_liked_post(post):
             like = Like(author_id=self.id, post_id=post.id)
-    
+            db.session.add(like)
+            db.session.commit()
+
     def unlike_post(self, post: 'Post') -> None:
         if self.has_liked_post(post):
             Like.query.filter_by(author_id=self.id, post_id=post.id).delete()
-        
+            db.session.commit()
+
     def has_liked_post(self, post: 'Post') -> bool:
         return Like.query.filter(Like.author_id == self.id, Like.post_id == post.id).count() > 0
 
+    def get_reset_token(self) -> str:
+        serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+        return serializer.dumps({'user_id': self.id})
+
+    @staticmethod
+    def verify_reset_token(token: str, max_age: int = 1800) -> 'User':
+        serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+        try:
+            data = serializer.loads(token, max_age=max_age)
+        except (BadSignature, SignatureExpired):
+            return None
+        return User.query.get(data['user_id'])
+
     def __repr__(self) -> str:
-        return f"User('{self.username}', '{self.email}', '{self.image_file}')"
+        return f"User('{self.username}', '{self.email}', '{self.profile_image}')"
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,7 +58,7 @@ class Post(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     file_path = db.Column(db.String(200), nullable=False)
-    rooms = db.Column(db.String(100), nullable=False)
+    bedrooms = db.Column(db.String(100), nullable=False)
     bathrooms = db.Column(db.String(100), nullable=False)
     area = db.Column(db.String(100))
     outside_features = db.Column(db.Text, nullable=True)
@@ -57,7 +75,7 @@ class Like(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
 
     def __repr__(self) -> str:
-        return '<Like {}>'.format(self.body)
+        return '<Like {}>'.format(self.id)
 
 
 def init_db() -> None:

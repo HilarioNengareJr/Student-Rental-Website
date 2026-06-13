@@ -38,6 +38,9 @@ app/static/javascript/
 # Profile pictures
 app/static/profile_pics/
 
+# Uploaded listing images
+app/static/uploads/
+
 # JSON data files
 app/webspider/estate_data.json
 app/webspider/blog_data.json

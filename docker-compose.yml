@@ -7,8 +7,19 @@ services:
     restart: always
     ports:
       - "5000:5000"
-
+    depends_on:
+      - elasticsearch
     environment:
       - FLASK_ENV=development
       - FLASK_APP=run.py
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
 
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    restart: always
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"

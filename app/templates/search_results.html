@@ -6,10 +6,12 @@
 
 <div class="filter">
     <fieldset class="filter-fieldset">
-        <form action="{{ url_for('properties') }}" method="post" class="custom-select">
+        <form action="{{ url_for('search') }}" method="post" class="custom-select">
+            <input type="hidden" name="query" value="{{ query }}">
             <div class="form-group">
                 <label class="select-label" for="city">City</label>
                 <select name="city" id="city">
+                    <option value="">Any</option>
                     <option value="Kyrenia">Girne</option>
                     <option value="Nicosia">Lefkosa</option>
                     <option value="Guzelyurt">Guzelyurt</option>
@@ -21,6 +23,7 @@
             <div class="form-group">
                 <label class="select-label" for="status">Status</label>
                 <select class="form-group select-class" name="status" id="status">
+                    <option value="">Any</option>
                     <option value="For Sale">For Sale</option>
                     <option value="To Rent">To Rent</option>
                 </select>
@@ -37,6 +40,7 @@
             <div class="form-group">
                 <label class="select-label" for="property_type">Property Type</label>
                 <select class="form-group select-class" name="property_type" id="property_type">
+                    <option value="">Any</option>
                     <option value="House">House</option>
                     <option value="Apartment">Apartment</option>
                     <option value="Flat">Flat</option>

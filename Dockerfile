@@ -51,5 +51,8 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # Expose port
 EXPOSE 5000
 
-# Set the default command
-CMD ["python", "run.py"]
+# Flask CLI entrypoint (used by `flask db upgrade`)
+ENV FLASK_APP=run.py
+
+# Apply migrations, then serve with Gunicorn (production WSGI server)
+CMD ["sh", "-c", "flask db upgrade && gunicorn -b 0.0.0.0:5000 run:app"]

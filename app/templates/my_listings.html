@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %} My Listings {% endblock %}
+{% block content %}
+
+<section class="property">
+    <div class="container">
+        <p class="section-subtitle">Your Properties</p>
+        <h2 class="h2 section-title">My Listings</h2>
+
+        {% if posts %}
+        <ul class="property-list grid-list">
+            {% for post in posts %}
+            <li>
+                <div class="property-card property-card-height">
+                    <div class="card-content">
+                        <div class="card-badge {% if post.status == 'To Rent' %}green{% else %}orange{% endif %}">
+                            {{ post.status }}
+                        </div>
+                        <div class="card-price"><strong>{{ post.rent }}</strong></div>
+                        <h3 class="h3 card-title"><a href="#">{{ post.title }}</a></h3>
+                        <p class="card-text" style="height: 60px; overflow-y: hidden;">{{ post.location }}</p>
+                        <div class="card-footer-actions" style="padding-block: 20px; gap: 12px;">
+                            <a href="{{ url_for('edit_listing', post_id=post.id) }}" class="btn">Edit</a>
+                            <form action="{{ url_for('delete_listing', post_id=post.id) }}" method="POST"
+                                onsubmit="return confirm('Delete this listing?');" style="display: inline;">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="card-text">You have no listings yet.
+            <a href="{{ url_for('add_listing') }}" class="navbar-link section-subtitle">Add one</a>.
+        </p>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

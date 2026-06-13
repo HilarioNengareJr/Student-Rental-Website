@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block title %} Reset Password {% endblock %}
+{% block content %}
+
+<section class="post-details auth h-100 needs-validation">
+    <form action="{{ url_for('reset_request') }}" method="POST" autocomplete="off">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group-set w-85">
+            <legend>Reset Password</legend>
+            <div class="form-group">
+                {{ form.email.label(class="form-label") }}
+                {% if form.email.errors %}
+                {{ form.email(class="form-control is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ form.email(class="form-control") }}
+                {% endif %}
+            </div>
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            </div>
+        </fieldset>
+    </form>
+</section>
+
+{% endblock %}

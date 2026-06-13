@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %} Edit Listing {% endblock %}
+{% block content %}
+
+<section class="post-details auth h-100 needs-validation">
+    <form action="{{ url_for('edit_listing', post_id=post.id) }}" method="POST" autocomplete="off">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group-set">
+            <legend class="mb-4">Edit Listing</legend>
+
+            {% for field in [form.status, form.title, form.rent, form.location, form.phone,
+                             form.whatsapp, form.description, form.bedrooms, form.bathrooms,
+                             form.area, form.furnishes, form.outside_features] %}
+            <div class="form-group">
+                {{ field.label(class="form-control-label") }}
+                {% if field.errors %}
+                {{ field(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                {{ field(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="form-group d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">{{ form.submit.label }}</button>
+            </div>
+        </fieldset>
+    </form>
+</section>
+
+{% endblock %}

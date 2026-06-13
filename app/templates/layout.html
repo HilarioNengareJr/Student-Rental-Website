@@ -185,6 +185,14 @@
                     </button>
 
                     {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('my_listings') }}" title="My Listings" class="header-bottom-actions-btn"
+                        aria-label="my listings">
+                        <ion-icon name="albums-outline"></ion-icon>
+                    </a>
+                    <a href="{{ url_for('account') }}" title="My Account" class="header-bottom-actions-btn"
+                        aria-label="account">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </a>
                     <a href="{{ url_for('logout') }}" class="btn">Logout</a>
                     {% else %}
                     <a href="{{ url_for('register') }}" title="Become Registered" class="header-bottom-actions-btn"
