@@ -42,6 +42,9 @@ app/static/profile_pics/
 app/webspider/estate_data.json
 app/webspider/blog_data.json
 
+# AI agent context docs (local only)
+context/
+
 # Other
 nohup.out
 os
