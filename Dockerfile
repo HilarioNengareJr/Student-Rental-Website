@@ -45,8 +45,10 @@ WORKDIR /app
 # Copy the application code
 COPY . /app
 
-# Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+# Install uv and sync dependencies from the lockfile (includes the scraper extra,
+# since this image ships Chrome). --no-dev skips test tooling.
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
+RUN uv sync --frozen --no-dev --extra scraper
 
 # Expose port
 EXPOSE 5000
@@ -55,4 +57,4 @@ EXPOSE 5000
 ENV FLASK_APP=run.py
 
 # Apply migrations, then serve with Gunicorn (production WSGI server)
-CMD ["sh", "-c", "flask db upgrade && gunicorn -b 0.0.0.0:5000 run:app"]
+CMD ["sh", "-c", "uv run flask db upgrade && uv run gunicorn -b 0.0.0.0:5000 run:app"]

@@ -1,0 +1,45 @@
+[project]
+name = "student-rental"
+version = "1.0.0"
+description = "Flask app for browsing and listing rental and for-sale property in North Cyprus"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Flask==2.3.1",
+    "Werkzeug==3.0.1",  # Flask 2.3.1's test client needs werkzeug.__version__, removed in 3.1
+    "Flask-SQLAlchemy==3.1.1",
+    "Flask-Login==0.6.3",
+    "Flask-Bcrypt==1.0.1",
+    "Flask-WTF==1.2.1",
+    "Flask-Dropzone==1.6.0",
+    "Flask-Mail==0.9.1",
+    "Flask-Migrate==4.1.0",
+    "python-dotenv==1.0.0",
+    "email-validator==2.1.0.post1",
+    "itsdangerous>=2.1",
+    "elasticsearch==8.12.0",
+    "gunicorn==21.2.0",
+    "Pillow==10.1.0",
+    "requests==2.31.0",
+]
+
+# Web scrapers (Selenium + Chrome). Optional — only needed to harvest listings.
+# Install with: uv sync --extra scraper
+[project.optional-dependencies]
+scraper = [
+    "selenium==4.17.2",
+    "selenium-stealth==1.0.6",
+    "undetected-chromedriver==3.5.3",
+    "webdriver-manager==4.0.1",
+    "beautifulsoup4==4.12.3",
+    "lxml==4.9.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

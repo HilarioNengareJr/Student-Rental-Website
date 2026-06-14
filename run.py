@@ -39,4 +39,6 @@ if __name__ == '__main__':
         logger.info('ENABLE_SCRAPER_THREADS is set — launching background scrapers')
         start_scraper_threads()
 
-    app.run(debug=_truthy(os.getenv('FLASK_DEBUG', 'false')), host='0.0.0.0', port=5000)
+    # Default to 5001 — macOS Control Center / AirPlay Receiver squats on 5000.
+    app.run(debug=_truthy(os.getenv('FLASK_DEBUG', 'false')),
+            host='0.0.0.0', port=int(os.getenv('PORT', 5001)))

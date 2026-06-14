@@ -25,17 +25,26 @@ a flask app for finding and listing property in north cyprus — lefke, güzelyu
 
 ## running it
 
+deps are managed with [uv](https://docs.astral.sh/uv/) — it grabs python 3.11 and sets up the env for you, no manual venv.
+
 local:
 
 ```bash
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env        # drop in your smtp creds etc.
-flask db upgrade            # build the database
-python run.py               # http://localhost:5000
+uv sync                       # creates .venv on python 3.11, installs deps
+cp .env.example .env          # drop in your smtp creds etc.
+uv run flask db upgrade       # build the database
+uv run python run.py          # http://localhost:5001
 ```
 
-a couple of env switches: `FLASK_DEBUG=true` for debug mode, `ENABLE_SCRAPER_THREADS=true` to kick off the scrapers on startup (needs chrome), `ELASTICSEARCH_URL` to point at a real elasticsearch instead of the fallback.
+(dev server runs on 5001 since macos parks airplay receiver on 5000 — override with `PORT=...`.)
+
+a couple of env switches: `FLASK_DEBUG=true` for debug mode, `ENABLE_SCRAPER_THREADS=true` to kick off the scrapers on startup, `ELASTICSEARCH_URL` to point at a real elasticsearch instead of the fallback.
+
+the scrapers (selenium + chrome) are an optional extra, since you don't need them just to run the site:
+
+```bash
+uv sync --extra scraper
+```
 
 docker (brings up the app and elasticsearch together):
 
@@ -46,7 +55,7 @@ docker compose up --build
 tests:
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## Screenshots of app
